@@ -1,6 +1,57 @@
-.field 
+.field
     width: 100vw
     height: 100vh
     max-width: 100%
     background-image: url("/assets/img/board.jpg")
+    display: flex
+    justify-content: center
+    align-items: center
+
+.card-stack
+    position: relative
+    img
+        position: absolute
+        width: 120px
+
+.top-card
+    cursor: pointer
+    transition: all 150ms ease-in-out
+    &:hover
+        transform: scale(1.1) translateY(-10px)
+
+.played-card 
+    right: 25px
+    transform: scale(1.0) translateX(200px) translateY(-180px) rotate(-10deg)
+
+
+.pick-card
+    animation: pick-card-animation 1s ease-in-out
+    transform: scale(1.0) translateX(200px) translateY(-180px) rotate(-10deg)
+    
+@keyframes pick-card-animation
+    0%
+        transform: scale(1)
+    33%
+        transform: scale(1.8)
+    66%
+        transform: scale(1.8)
+    100%
+        transform: scale(1) translateX(200px) translateY(-180px) rotate(-10deg)
+
+
+.player-position
+    position: absolute 
+    right: 0
+
+
+.btn-add 
+    position: absolute
+    bottom: 20px
+    right: 20px
+ 
+.pin-bottom
+    position: absolute
+    bottom: 32px
+    left: 100px
+    right: 100px
 

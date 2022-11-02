@@ -11,8 +11,8 @@ export class StartScreenComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-  }
-  /* Start the game */
+  } 
+
   newGame() {
     console.log('works fine');
     this.router.navigateByUrl('/game'); }
