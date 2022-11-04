@@ -10,6 +10,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  getFirestore
 } from '@firebase/firestore';
 
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +24,7 @@ import { collectionData, Firestore } from '@angular/fire/firestore';
 })
 export class GameComponent implements OnInit {
 
+  private pokemonCollection: CollectionReference<DocumentData>;
   game: Game;
   gameID;
   games$: Observable<any>
@@ -33,11 +35,13 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe((params) => {
+      debugger;
       this.gameID = params['id'];
       doc(params['id']);
       this.games$ = collectionData(this.coll);
       this.games$.subscribe((game: any) => {
-          this.game.players = game.players,
+        console.log(this.game.players)
+        this.game.players = game.players,
           this.game.stack = game.stack,
           this.game.playedCards = game.playedCards,
           this.game.currentPlayer = game.currentPlayer,
@@ -72,10 +76,14 @@ export class GameComponent implements OnInit {
   }
 
   saveGame() {
-    doc(this.gameID);
-    console.log(this.gameID)
-    this.games$ = collectionData(this.coll);
+    const gamesDocumentReference = doc(
+      this.firestore,
+      `${this.gameID}`
+    );
+    return updateDoc(gamesDocumentReference, { 'games': this.game });
   }
+
+
 }
 
 
