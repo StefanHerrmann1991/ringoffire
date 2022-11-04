@@ -12,7 +12,6 @@ import {
   updateDoc,
   getFirestore
 } from '@firebase/firestore';
-
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { collectionData, Firestore } from '@angular/fire/firestore';
@@ -24,29 +23,30 @@ import { collectionData, Firestore } from '@angular/fire/firestore';
 })
 export class GameComponent implements OnInit {
 
-  private pokemonCollection: CollectionReference<DocumentData>;
-  game: Game;
-  gameID;
-  games$: Observable<any>
-  coll = collection(this.firestore, 'games');
+  
+ 
 
   constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
+  game: Game;
+  gameID;
+  games$: Observable<any>;
+  coll = collection(this.firestore, 'games');
+
 
   ngOnInit(): void {
 
     this.route.params.subscribe((params) => {
-      debugger;
-      this.gameID = params['id'];
+        this.gameID = params['id'];
       doc(params['id']);
       this.games$ = collectionData(this.coll);
       this.games$.subscribe((game: any) => {
         console.log(this.game.players)
-        this.game.players = game.players,
-          this.game.stack = game.stack,
-          this.game.playedCards = game.playedCards,
-          this.game.currentPlayer = game.currentPlayer,
-          this.game.currentCard = game.currentCard,
-          this.game.pickCardAnimation = game.pickCardAnimation
+        this.game.players = game.players;
+          this.game.stack = game.stack;
+          this.game.playedCards = game.playedCards;
+          this.game.currentPlayer = game.currentPlayer;
+          this.game.currentCard = game.currentCard;
+          this.game.pickCardAnimation = game.pickCardAnimation;
       })
     })
   }
@@ -68,7 +68,6 @@ export class GameComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
-
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 0)
         this.game.players.push(name);
@@ -80,10 +79,8 @@ export class GameComponent implements OnInit {
       this.firestore,
       `${this.gameID}`
     );
-    return updateDoc(gamesDocumentReference, { 'games': this.game });
+    return updateDoc(gamesDocumentReference, { 'games': this.game.toJson });
   }
-
-
 }
 
 
