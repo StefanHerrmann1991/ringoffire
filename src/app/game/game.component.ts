@@ -13,8 +13,7 @@ import {
   getFirestore
 } from '@firebase/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore/';
 
 @Component({
   selector: 'app-game',
@@ -23,31 +22,31 @@ import { collectionData, Firestore } from '@angular/fire/firestore';
 })
 export class GameComponent implements OnInit {
 
-  
- 
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
+
+
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, public dialog: MatDialog) { }
   game: Game;
   gameID;
-  games$: Observable<any>;
-  coll = collection(this.firestore, 'games');
-
-
+ 
   ngOnInit(): void {
 
     this.route.params.subscribe((params) => {
-        this.gameID = params['id'];
-      doc(params['id']);
-      this.games$ = collectionData(this.coll);
-      this.games$.subscribe((game: any) => {
-        console.log(this.game.players)
-        this.game.players = game.players;
+      this.gameID = params['id'];
+      console.log(this.gameID)
+      this
+        .firestore
+        .collection('games')
+        .doc(this.gameID)
+        .valueChanges()
+        .subscribe((game: any) => {
+          this.game.players = game.players;
           this.game.stack = game.stack;
           this.game.playedCards = game.playedCards;
           this.game.currentPlayer = game.currentPlayer;
           this.game.currentCard = game.currentCard;
           this.game.pickCardAnimation = game.pickCardAnimation;
-      })
+        })
     })
   }
 
@@ -75,11 +74,11 @@ export class GameComponent implements OnInit {
   }
 
   saveGame() {
-    const gamesDocumentReference = doc(
-      this.firestore,
-      `${this.gameID}`
-    );
-    return updateDoc(gamesDocumentReference, { 'games': this.game.toJson });
+    this
+    .firestore
+    .collection('games')
+    .doc(this.gameID)
+    .update(this.game.toJson());
   }
 }
 

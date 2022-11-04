@@ -10,6 +10,7 @@ import {
   doc,
   updateDoc,
 } from '@firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Game } from 'src/models/game';
 
 
@@ -20,15 +21,19 @@ import { Game } from 'src/models/game';
 })
 export class StartScreenComponent implements OnInit {
 
-  constructor(private firestore: Firestore, private router: Router) { }
+  constructor(private firestore: AngularFirestore, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  coll = collection(this.firestore, 'games');
+
 
   newGame() {
-    let game = new Game(); 
-    addDoc(this.coll, { game: game.toJson() }).then((gameinfo: any) => { this.router.navigateByUrl('/game/' + gameinfo.id) })
+    let game = new Game();
+    this
+      .firestore
+      .collection('games')
+      .add(game.toJson())
+      .then((gameinfo: any) => { this.router.navigateByUrl('/game/' + gameinfo.id) })
   }
 }
