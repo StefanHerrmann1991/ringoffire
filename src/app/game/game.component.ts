@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
   gameID;
  
   ngOnInit(): void {
-
+    this.newGame();
     this.route.params.subscribe((params) => {
       this.gameID = params['id'];
       console.log(this.gameID)
@@ -48,6 +48,10 @@ export class GameComponent implements OnInit {
           this.game.pickCardAnimation = game.pickCardAnimation;
         })
     })
+  }
+
+  newGame() {
+    this.game = new Game();
   }
 
   takeCard() {
