@@ -10,19 +10,41 @@
     img
         height: 100vh
 
-.start-label-box
+    @media (max-width: 960px)
+        overflow: hidden
+        img
+            width: 80vw
+            height: auto !important
 
+    @media (max-width: 760px)
+        img
+            width: 100vw
+            height: 100%
+
+.relative
+    position: relative
+
+.start-label-box
+    height: 12%
     position: absolute
-    bottom: 10vh
+    bottom: 10%
     left: 0
     right: 0
     display: flex
     justify-content: center
 
     img
-        width: 40vw
-        height: auto
-        
+        height: 100%
         &:hover
             filter: brightness(1.5)
             cursor: pointer
+
+    @media (max-width: 960px)
+           
+        img            
+            width: 80%
+
+    @media (max-width: 760px)
+        img
+            width: 80%
+            height: 100%

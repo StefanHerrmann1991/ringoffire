@@ -8,6 +8,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class GameInfoComponent implements OnInit, OnChanges {
 
   cardAction = [
+    { title: 'Ace - waterfall', description: 'Starting with the player who drew the card, every player has to continually drink their drink. You can only stop when the person to their right has stopped drinking.' },
     { title: 'You', description: 'The player who drew the card picks someone to drink.' },
     { title: 'Me', description: 'The player who drew the card drinks.' },
     { title: 'Woman', description: 'All women drink.' },
@@ -20,7 +21,6 @@ export class GameInfoComponent implements OnInit, OnChanges {
     { title: 'Jack', description: 'Make a rule. The player who drew the card makes a new rule (e.g. you can\'t say the word \'yes\' or you can\'t put your drink down) and anyone who breaks the rule at any time throughout the rest of the game has to drink.' },
     { title: 'Queen', description: 'Question master. You become the question master, and if anybody answers a question asked by you (the player who drew the card), they have to drink. This applies to ANY question.' },
     { title: 'King', description: 'The player who drew the card must pour some of their drink into the cup in the middle. The person to draw the last King has to drink whatever is in the cup in the middle. ' },
-    { title: 'Ace - waterfall', description: 'Starting with the player who drew the card, every player has to continually drink their drink. You can only stop when the person to their right has stopped drinking.' },
   ]
 
   title = '';
